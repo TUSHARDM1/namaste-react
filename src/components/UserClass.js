@@ -32,10 +32,10 @@ class UserClass extends React.Component {
         const {name, location, avatar_url} = userInfo;
         console.log(name + " From UserClass Render");
         return (
-            <div className="user-card">
+            <div className="w-52">
                <h2>Count = {count}</h2>
                <h2>Count2 = {count2}</h2>
-               <button onClick={()=>{
+               <button className="px-4 py-1 m-3 bg-green-300 rounded-lg" onClick={()=>{
                 this.setState({
                     count: this.state.count + 1,
                     count2: this.state.count2 + 1
@@ -44,7 +44,7 @@ class UserClass extends React.Component {
                <h3>Name: {name}</h3>
                <h4>Location: {location}</h4>
                <h5>Contact: DipaliTM</h5>
-               <img src={avatar_url} />
+               <img className="my-3 rounded-lg p-2 bg-gray-300 shadow-lg hover:scale-105 transition-all" src={avatar_url} />
             </div>
         ) 
     }   

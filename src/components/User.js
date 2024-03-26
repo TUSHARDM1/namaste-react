@@ -4,10 +4,10 @@ const User = ({name}) => {
     const [count, setCount] = useState(0);
     const [count2, setCount2] = useState(1);
     return (
-        <div className="user-card">
+        <div className="w-52">
             <h2>Count = {count} </h2>
             <h2>Count2 = {count2} </h2>
-            <button onClick={()=>{
+            <button className="px-4 py-1 m-3 bg-green-300 rounded-lg" onClick={()=>{
                 updateCount = count + 1;
                 setCount(updateCount);
                 updateCount2 = count2 + 1;

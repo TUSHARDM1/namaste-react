@@ -1,14 +1,20 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM  from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
 
-import "./style.scss";
+import "../output.css";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import About from "./components/About";
 import Error from './components/Error';
 import Mentor from "./components/Mentor";
 import ProductDetails from "./components/ProductDetail";
+import Mentee from "./components/Mentee";
+import Cart from "./components/Cart";
+import CartProductDetails from "./components/CartProductDetails";
+import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 // const heading = React.createElement("h1", {id: "heading", className: "heading"}, "Hello from React code!");
 // console.log("Heading => ",heading);
 // React code is first of all object which is then rendered to create HTML Element besically
@@ -59,17 +65,30 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 
 
+const ContactLazyPage = lazy(()=> import("./components/Contact"));
 
 const AppLayout = () => {
+  const [userName, setUserName] = useState();
+  useEffect(()=> {
+    const data = {
+      name: "Tushar M",
+    }
+    setUserName(data.name);
+  }, [])
     return (
-        <div className="container">
-            <Header></Header>
-            <Outlet></Outlet>
-        </div>
+      <Provider store={appStore}>
+        <UserContext.Provider value={{loggedInUser: userName, setUserName}}>
+          <div className="container">
+              <Header></Header>
+              <Outlet></Outlet>
+          </div>
+        </UserContext.Provider> 
+      </Provider>
     )
 }
 
-const ContactLazyPage = lazy(()=> import("./components/Contact"));
+
+
 
 const appRouter = createBrowserRouter([
   {
@@ -88,6 +107,10 @@ const appRouter = createBrowserRouter([
         path: "/mentor",
         element: <Mentor></Mentor>
       },
+      {
+        path: "/mentee",
+        element: <Mentee></Mentee>
+      },
       // { Loaded as lazy load
       //   path: "/contact",
       //   element: <Contact></Contact>
@@ -99,8 +122,16 @@ const appRouter = createBrowserRouter([
                   </Suspense>
       },
       {
+        path: "/cart",
+        element: <Cart></Cart>
+      },
+      {
         path: "/product-details/:userId",
         element: <ProductDetails></ProductDetails>
+      },
+      {
+        path: "/cart-product-details/:productId",
+        element: <CartProductDetails></CartProductDetails>
       }
     ],
     errorElement: <Error></Error>

@@ -50,14 +50,17 @@ const Body = () => {
         
         <div className="body">
             <div className="flex">
-            <div className="search-holder">
-                <input type="text" className="search-box"
+            <div className="search-holder p-2 m-3">
+                <input type="text" className="border-black px-2 border border-solid"
                 value={searchText}
+                placeholder="Search....!"
                 onChange={(e)=> {
                     setSearchText(e.target.value);
                 }}
                 ></input>
-                <button onClick={() => {
+                <button
+                    className="px-4 py-1 m-3 bg-green-300 rounded-lg"
+                onClick={() => {
                     let filteredDummydata = dummydata.filter((Person)=> {
                       return Person.employee_name.toLowerCase().includes(searchText.toLowerCase())
                     });
@@ -65,7 +68,9 @@ const Body = () => {
                 }}>
                     Search Teacher
                 </button>
-                <button onClick={() => {
+                <button
+                className="px-4 py-1 m-3 bg-green-300 rounded-lg"
+                onClick={() => {
                     let filteredProducts = products.filter((product)=> {
                       return product.brand.toLowerCase().includes(searchText.toLowerCase())
                     });
@@ -73,38 +78,42 @@ const Body = () => {
                 }}>
                     Search Product
                 </button>
-                <button onClick={() => {
+                <button
+                className="px-4 py-1 m-3 bg-green-300 rounded-lg"
+                onClick={() => {
                     setFilteredDummyData(dummyData);
                     setFilteredProducts(products);
                     setSearchText("");
                 }}>
                     Reset
                 </button>
+
+                
             </div>
             <p>{userData}</p>
             </div>
             
             
             <div className="filter-button">
-                <button className="btn" onClick={()=> {
+                <button className="px-4 py-1 m-3 bg-green-300 rounded-lg" onClick={()=> {
                   let dummydataFiltered = filteredDummyData.filter((person) => person.employee_age > 62);
                    setFilteredDummyData(dummydataFiltered);
                 }}> 
                     Top Rated Employees
                 </button>
-                <button className="btn" onClick={() => {
+                <button className="px-4 py-1 m-3 bg-green-300 rounded-lg" onClick={() => {
                    userData !== 'Hello Dipali' ? setUserData('Hello Dipali') : setUserData('Hello Tushar')
                 }}>
                     Change Tushar to Dipali and Vice versa
                 </button>
-                <button className="btn"  onClick={()=> {
+                <button className="px-4 py-1 m-3 bg-green-300 rounded-lg"  onClick={()=> {
                   let dummydataFiltered = [];
                   setFilteredDummyData(dummydataFiltered);
                 }}>
                     Remove Teacher Data
                 </button>
             </div>
-            <div className="card-holder">
+            <div className="flex flex-wrap">
                 <CardHolder name="Tushar Maheshwari" skills="Angular, Typescript, React"></CardHolder>
                 {filteredDummyData.map((person)=><CardHolderV2 key={person.id} resdata={person} />)}
                {filteredProducts.map((product)=><Product key={product.id} resdata={product} />)}         

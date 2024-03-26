@@ -5,10 +5,10 @@ const cardStyle = {
 const CardHolderV2 = (props) => {
     const {employee_name, profile_image, employee_salary, employee_age, id} = props?.resdata;
     return (
-        <div className="card" style={cardStyle}>
-            <h3> {employee_name}</h3>
+        <div className="p-4 m-4 w-52 rounded-lg border-solid border-gray-500" style={cardStyle}>
+            <h3 className="font-bold my-2"> {employee_name}</h3>
             <div className="image-holder">
-                <img src={profile_image} alt="Teacher" />
+                <img className="w-full border border-solid" src={profile_image} alt="Teacher" />
             </div>
             <div className="salary">
                 Salary: {employee_salary} INR

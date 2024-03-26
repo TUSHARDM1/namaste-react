@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Product from "./Product";
+import Product, { withHighRating } from "./Product";
 import { urlData } from "../utils/Constants";
 import { Link } from "react-router-dom";
 
@@ -14,13 +14,20 @@ const Mentor = () => {
         const json = await data.json();
         setProducts(json?.products);
     }
+    // Higher order component in React
+    const ProductWithHighRating = withHighRating(Product);
     return(
         <div>
-            <div className="card-holder">
+            <div className="flex flex-wrap justify-center mt-5">
                  {products.map((product)=>
+                product.rating > 4.5 ? 
                  <Link key={product.id} to={`/product-details/${product.id}`}>
                     <Product resdata={product} />
-                 </Link>)} 
+                 </Link> :
+                <Link key={product.id} to={`/product-details/${product.id}`}>
+                    <ProductWithHighRating resdata={product} />
+                 </Link>
+                 )} 
             </div>  
         </div>
     )
